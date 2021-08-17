@@ -1,4 +1,4 @@
- # RGB Dictionary
+# RGB Dictionary
 RGB = {
     (0, 0, 255): '차가운 파란색',
     (0, 0, 130): '어두운 남색',
@@ -36,22 +36,23 @@ RGB = {
     (0, 0, 0): '검정색'
 }
 
+# RGB 값들을 리스트로 변환
 rgb = list(RGB.keys())
 rgb_len = len(rgb)
 
 
+# 옷의 색에서 추출된 RGB 값들(rgb_list)을 위 자료구조에서의 RGB 값들과 비교해 가장 비슷한 색을 추출
 def extract_color(rgb_list):
-    final_color = []
+    color_name_list = []
     for i in range(len(rgb_list)):
         minimum = 99999999
         for j in range(rgb_len):
             chai = 0
+            # R, G, B 3가지 비교
             for k in range(3):
                 chai += abs(rgb_list[i][k] - rgb[j][k])
             if chai < minimum:
                 minimum = chai
-                temp = RGB[rgb[j]]
-        final_color.append(temp)
-    return final_color
-
-print(extract_color([[0, 0, 0]]))
+                closest_color = RGB[rgb[j]]
+        color_name_list.append(closest_color)
+    return color_name_list
