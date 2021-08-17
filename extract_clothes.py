@@ -91,7 +91,7 @@ if __name__ == '__main__':
     db = pymysql.connect(host='34.64.248.176', user='root', password='kobot10', db='see_ot', charset='utf8')
     cursor = db.cursor(pymysql.cursors.DictCursor)
     # 어울리는 색 검색
-    sql = "SELECT matching FROM color WHERE color = '{}';".format(priority_color)
+    sql = "SELECT matching FROM color WHERE color_name = '{}';".format(priority_color)
     cursor.execute(sql)
     result = cursor.fetchall()
     # 검색 결과를 리스트로 반영
