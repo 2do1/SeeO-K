@@ -1,0 +1,5 @@
+0 checkered
+1 dotted
+2 floral
+3 striped
+4 solid
