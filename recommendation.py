@@ -38,6 +38,7 @@ def recommend_with_clothes(temp, matching_list, feature):
     recommend_list = []
     c_list_top, c_list_bottom, c_list_etc = recommend_without_clothes(temp)
     # print(c_list_top, c_list_bottom, c_list_etc)
+    # 상의인이 하의인지 판별
     if feature in c_list_etc:
         return 0
     elif feature in c_list_top:
@@ -49,7 +50,7 @@ def recommend_with_clothes(temp, matching_list, feature):
     # DB(MYSQL) 연동
     db = pymysql.connect(host='34.64.248.176', user='root', password='kobot10', db='see_ot', charset='utf8')
     cursor = db.cursor(pymysql.cursors.DictCursor)
-    # 어울리는 색 검색
+    # 어울리는 옷 가져오기
     for i in matching_list:
         for j in c_list:
             sql = "SELECT * FROM closet WHERE color = '{}' AND feature ='{}';".format(i,j)
