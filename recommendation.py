@@ -1,4 +1,7 @@
 import pymysql
+# 옷 추천 알고리즘
+
+# 걸려있는 옷이 없는 경우
 def recommend_without_clothes(temp):
     c_list_top = []
     c_list_bottom = []
@@ -28,7 +31,7 @@ def recommend_without_clothes(temp):
 
     return c_list_top, c_list_bottom, c_list_etc
 
-
+# 걸려있는 옷이 있는 경우
 def recommend_with_clothes(temp, matching_list, feature):
     # print(temp, matching_list, feature)
     c_list = []
