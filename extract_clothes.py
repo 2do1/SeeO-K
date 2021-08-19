@@ -69,9 +69,9 @@ def image_color_cluster(image, k=5):
     return c_list, p_list
 
 
-if __name__ == '__main__':
-    picture = cv2.imread('data_T.png')
-    back = cv2.imread('wall.png')
+def find_color_name():
+    picture = cv2.imread('origin.png')
+    back = cv2.imread('back.png')
     img = extraction(picture, back)
     rgb_list, percent_list = image_color_cluster(img)
     color_name_list = color_data.extract_color(rgb_list)
@@ -79,14 +79,10 @@ if __name__ == '__main__':
     # 가장 비중이 큰 옷의 색 확인
     priority_color = color_name_list[percent_list.index(max(percent_list))]
     print("====", priority_color, "====")
+    return priority_color
 
-    # 추출된 옷 및 색 분포도 확인
-    plt.subplot(121), plt.imshow(cv2.cvtColor(cv2.imread('data_T.png'), cv2.COLOR_BGR2RGB))
-    plt.title("before"), plt.xticks([]), plt.yticks([])
-    plt.subplot(122), plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    plt.title("after"), plt.xticks([]), plt.yticks([])
-    plt.show()
 
+def find_matching_color_name(priority_color):
     # DB(MYSQL) 연동
     db = pymysql.connect(host='34.64.248.176', user='root', password='kobot10', db='see_ot', charset='utf8')
     cursor = db.cursor(pymysql.cursors.DictCursor)
@@ -96,5 +92,4 @@ if __name__ == '__main__':
     result = cursor.fetchall()
     # 검색 결과를 리스트로 반영
     matching_list = result[0]['matching'].split(', ')
-    for i in matching_list:
-        print(i)
+    return matching_list
