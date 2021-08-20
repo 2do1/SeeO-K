@@ -43,33 +43,23 @@ class ConvNet(nn.Module):
 
 
 model = torch.load(PATH + 'model.pt')
+
 labels = ['가방', '긴 겉옷', '긴팔 셔츠', '긴팔 원피스', '긴팔 티셔츠', '긴팔 후드티', '나시', '나시 원피스', '반바지',
           '반팔 셔츠', '반팔 원피스', '반팔 티셔츠', '샌들', '스니커즈', '슬림핏바지', '앵클부츠', '일자핏바지', '짧은 겉옷', '치마']
 
-
 def test(test_list):
     # load images
-    print("wow")
     img = cv2.imread("60013.png")
     transfrom = transforms.Compose([
         transforms.Grayscale(1),
         transforms.ToTensor()
     ])
-    # print(image.size)
     image = Image.fromarray(img)
     image = transfrom(image)
-    # print(image.size())
-    # plt.title("input image")
-    # plt.imshow(image.squeeze(0), cmap='gray')
-    # plt.show()
     image = image.unsqueeze(0)
-    # print(image.size())
     output = model(image)
     output_list = output.tolist()[0]
-    # print(output)
-    # print(output_list[0])
     predicted_idx = output_list.index(max(output_list))
-    # print(predicted_idx)
     predicted_label = test_list[predicted_idx]
     print('predicted output:', predicted_label)
 
