@@ -4,6 +4,11 @@ import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 
+/** 옷의 종류를 판별하는 모듈이다.
+* @author 이한정
+* @version 1.0.0
+*/
+
 # training에 사용한 Convolutional Neural Network
 class ConvNet(nn.Module):
     def __init__(self):
