@@ -31,6 +31,7 @@ class Command:
         self.yes = ["추천해 줘", "응"]
         self.no = ["아니", "괜찮아"]
 
+    # 입력된 옷의 색을 예측
     def pred_color(self, fw, bg):
         result_list = []
         color = extract_clothes.find_color_name()
@@ -38,25 +39,32 @@ class Command:
         result_list.append(extract_clothes.find_matching_color_name(color))
         print(result_list)
 
+        # 추정되는 색과 어울리는 색 리스트가 리턴
         return result_list
 
+    # 입력된 옷의 패턴을 예측
     def pred_pattern(self, fw, bg):
         # pattern
         pattern = pattern_recognition_v2.pred_pattern(fw, bg)
         print("pattern = " + pattern)
 
+        # 추정되는 패턴이 리턴
         return pattern
 
+    # 입력된 옷의 종류를 리턴
     def pred_kinds(self, fw, bg):
         # kinds
         image = preprocess_cloth.preprocess_convnet(fw, bg)
         kinds = cloth_recognition.predict_cloth(image)
         print("kinds = " + kinds)
 
+        # 추정되는 종류가 리턴
         return kinds
 
+    # 입력되는 사용자의 명령어에 따라 해당하는 기능이 실행
     def command_response(self, comm):
 
+        # 옷 인식 요청 명령어
         if (comm == "무슨 옷이야"):
             cap = cv2.VideoCapture(0, cv2.CAP_V4L)  # 노트북 웹캠을 카메라로 사용
 
@@ -68,10 +76,13 @@ class Command:
             self.picture = "../image_data/cloth.jpg"
             self.back = "../image_data/back.jpg"
 
+            # 색 인식 기능 실행
             result_color = self.pred_color(self.picture, self.back)
 
+            # 패턴 인식 기능 실행
             result_pattern = self.pred_pattern(self.picture, self.back)
 
+            # 종류 인식 기능 실행
             result_kinds = self.pred_kinds(self.picture, self.back)
 
             self.result_list.append(result_color)
@@ -82,6 +93,7 @@ class Command:
             voice_command_pattern = self.result_list[1]
             voice_command_kinds = self.result_list[2]
 
+            # 인식 결과를 음성으로 변환하여 사용자에게 출력
             if (voice_command_pattern == "줄 무늬"):
                 result_string = "이 옷은" + voice_command_color[0][0] + " ." + voice_command_color[0][
                     1] + " ." + voice_command_pattern + " ." + voice_command_kinds + "입니다."
@@ -99,9 +111,11 @@ class Command:
             playsound.playsound("../sound_data/result.wav")
             time.sleep(1)
 
+            # 옷장 데이터베이스에 해당 옷 저장
             insert_clothes.insert_clothes(voice_command_kinds, voice_command_color[0][0])
             print("save!!")
 
+            # 추천 여부 사용자에게 질의 후, 입력 대기
             while (True):
                 try:
                     playsound.playsound("../sound_data/recommandation.wav")
@@ -113,6 +127,7 @@ class Command:
                     playsound.playsound("../sound_data/idks.wav")
                     continue
 
+                # 사용자의 대답이 긍정일 경우,
                 if (user_command in self.yes):
                     ###
                     wt = int(weather.weather())
@@ -147,10 +162,11 @@ class Command:
                     else:
                         playsound.playsound("../sound_data/result_s.wav")
 
-
+                # 입력된 사용자의 대답이 부정일 경우,
                 elif (user_command in self.no):
                     break
 
+        # 날씨 정보 요청 명령어
         elif (comm == "날씨 알려 줘"):
             now_temperature = int(weather.weather())
             playsound.playsound("../sound_data/weather.wav")
@@ -159,6 +175,7 @@ class Command:
 
             d = a + b + c
 
+            # 날씨에 따른 옷 추천 여부 질의 후, 사용자의 입력 대기
             while (True):
                 try:
                     playsound.playsound("../sound_data/recommandation_wt.wav")
@@ -182,6 +199,7 @@ class Command:
                 elif (user_command in self.no):
                     break
 
+        # 두 양말의 색을 구별하는 기능 실행
         elif (comm == "양말 구별해 줘"):
             cap = cv2.VideoCapture(0, cv2.CAP_V4L)  # 노트북 웹캠을 카메라로 사용
 
@@ -195,6 +213,7 @@ class Command:
 
             color1, color2 = socks.find_color_name(self.picture, self.back)
 
+            # 결과 값에 따른 결과를 음성으로 출력
             if color1 != color2:
                 tts = gtts.gTTS(text="두 양말의 색이 달라요. 왼쪽은" + color1 + ".오른쪽은" + color2 + "입니다.", lang="ko")
                 tts.save("../sound_data/result_s.wav")
