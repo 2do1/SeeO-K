@@ -2,6 +2,14 @@
 
 import extract_clothes
 import torch.nn as nn
+
+'''
+사용자의 음성 입력을 대기하고 적절한 명령어가 입력되면 해당하는 기능을 실행하는 기능을 가진 파일
+
+@__author__ = 송수인
+@version 1.0
+'''
+
 class ConvNet(nn.Module):
     def __init__(self):
         super().__init__()
@@ -38,8 +46,10 @@ import voice_command_input
 import test
 import playsound
 
+# 사용자에게 알맞은 명령어가 입력되었는지를 판단하기 위한 명령어 리스트
 command_list = ["무슨 옷이야", "날씨 알려 줘", "저장해 줘", "양말 구별해 줘"]
 
+# 사용자에게 음성 안내를 제공하고 음성 입력을 대기
 def main():
     while(True):
         try:
