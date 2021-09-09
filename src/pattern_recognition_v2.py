@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+'''
+* google teachable machine으로 학습한 tensorflow lite 모델을 이용하여 옷의 패턴을 추론하는 기능을 하는 코드
+* 
+* @author 송수인
+* @version 1.0
+'''
+
 import cv2
 import numpy as np
 import tensorflow as tf
