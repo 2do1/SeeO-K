@@ -1,4 +1,9 @@
-# RGB Dictionary
+"""
+RGB Dictionary
+@author 김하연 
+@version 1.0.0
+"""
+
 RGB = {
     (0, 0, 255): '차가운 파란색',
     (25, 70, 130): '어두운 남색',
