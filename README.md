@@ -1,6 +1,6 @@
 # 시옷(SeeO-K) : 시각장애인을 위한 옷 종류, 색, 패턴 판별 및 코디 추천 시스템 
 
-![image-20210909015251527](C:\Users\admin\AppData\Roaming\Typora\typora-user-images\image-20210909015251527.png)
+<img width="619" alt="title" src="https://user-images.githubusercontent.com/28584275/132673765-dd23f735-b06f-44d8-9cba-ac8441f7ff54.png">
 
 ## 개발 환경
 
@@ -140,11 +140,12 @@ git clone https://github.com/2do1/SeeO-K.git
 
 ### 1. FlowChart
 
-![FlowChart](C:\Users\admin\Desktop\FlowChart.png)
+![flow](https://user-images.githubusercontent.com/28584275/132673835-c019fbd3-ed7c-4409-807b-1e1439c64252.png)
+
 
 ### 2. 서비스 아키텍처
 
-![서비스 아키텍처](C:\Users\admin\Desktop\서비스 아키텍처.png)
+![arch](https://user-images.githubusercontent.com/28584275/132673894-21262e8a-b256-4c7b-8c52-e7e4fe70d95f.png)
 
 ## 시옷 시연 영상
 
