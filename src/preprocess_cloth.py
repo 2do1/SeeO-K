@@ -6,10 +6,11 @@ from PIL import Image
 from PIL import ImageOps
 import numpy as np
 
-/** ConvNet에 입력으로 들어갈 이미지를 전처리 하는 모듈이다.
+""" 
+* ConvNet에 입력으로 들어갈 이미지를 전처리 하는 모듈이다.
 * @author 이한정
 * @version 1.0.0
-*/
+"""
 
 def preprocess_convnet(cloth, back):
     """
