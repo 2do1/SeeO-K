@@ -18,13 +18,16 @@ def pred_pattern(fw, bg):
     image_bg = cv2.imread('../image_data/back.png')
     background_removed_img = image_fw.copy()
 
+    # 그림자 제거
     difference = cv2.subtract(image_bg, image_fw)
     background_removed_img[np.where((difference < [100, 100, 100]).all(axis=2))] = [0, 0, 0]
 
+    # 효과적인 자르기를 위하여, 바운딩 박스를 활용
     cropped_img = Image.fromarray(background_removed_img)
     bbox = cropped_img.getbbox()
     cropped_img = cropped_img.crop(bbox)
 
+    # 모델에 이미지를 알맞게 올리기 위하여 224, 224로 변환하고 노멀라이제이션 및 플롯형 변환 실행
     cropped_img = cropped_img.rotate(90)
     cropped_img = ImageOps.fit(cropped_img, (224, 224), Image.ANTIALIAS)
     cropped_img = np.asarray(cropped_img)
