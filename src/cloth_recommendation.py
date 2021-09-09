@@ -1,9 +1,18 @@
 import pymysql
+"""
+날씨와 어울리는 색을 이용한 추천 알고리즘
+@author 김하연
+@version 1.0.0
+"""
 
 
 # 옷 추천 알고리즘
 
 def recommend_without_clothes(temp):
+    """
+    :param temp(int): 기온
+    :return c_list_top, c_list_bottom, c_list_etc (list): 기온별 옷 리스트 상의, 하의, 그외
+    """
     c_list_top = [] #상의 리스트
     c_list_bottom = [] #하의 리스트
     c_list_etc = [] #원피스 리스트
@@ -34,6 +43,11 @@ def recommend_without_clothes(temp):
 
 # 옷 추천 기본
 def recommend_with_clothes(temp, feature):
+    """
+    :param temp(int): 기온
+    :param feature(string): 옷 종류
+    :return c_list(list): 상하의 구별한 기온에 맞는 옷 리스트
+    """
     c_list = []
     c_list_top, c_list_bottom, c_list_etc = recommend_without_clothes(temp)
     
@@ -50,6 +64,11 @@ def recommend_with_clothes(temp, feature):
 
 # 옷장에 해당하는 옷 있는지 찾아보기
 def DB(matching_list, c_list):
+    """
+    :param matching_list(list): 어울리는 색상 리스트
+    :param c_list(list): 구별한 옷이 상의면 하의 리스트 하의면 상의 리스트
+    :return sum(list): 어울리는 옷 중 옷장에 있는 옷 리스트
+    """
    
     # DB(MYSQL) 연동
     recommend_list = []
