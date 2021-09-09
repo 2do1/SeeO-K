@@ -1,6 +1,6 @@
 """
 RGB Dictionary
-@author 김하연 
+@author 김하연 노성환
 @version 1.0.0
 """
 
@@ -51,6 +51,10 @@ rgb_len = len(rgb)
 
 # 옷의 색에서 추출된 RGB 값들(rgb_list)을 위 자료구조에서의 RGB 값들과 비교해 가장 비슷한 색을 추출
 def extract_color(rgb_list):
+    """
+        :param rgb_list(list) : extract_clothes에서 rgb값들이 담긴 리스트
+        :return color_name_list(list): rgb_list를 색 이름으로 바꾼 리스트
+    """
     color_name_list = []
     for i in range(len(rgb_list)):
         minimum = 99999999

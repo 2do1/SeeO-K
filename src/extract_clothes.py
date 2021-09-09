@@ -7,7 +7,7 @@ import color_data
 from PIL import Image
 """
 배경 제거 및 색상 판별
-* @author 김하연
+* @author 김하연 노성환
 * @version 1.0.0
 """
 
@@ -29,6 +29,10 @@ def extraction(cloth, back):
 
 # 히스토그램 평균화
 def centroid_histogram(clt):
+    """
+    :param clt(array) : 클러스터 픽셀
+    :return hist(numpy array) :  히스토그램의 값들이 담긴 리스트
+    """
     numLabels = np.arange(0, len(np.unique(clt.labels_)) + 1)
     (hist, _) = np.histogram(clt.labels_, bins=numLabels)
     hist = hist.astype("float")
@@ -38,6 +42,13 @@ def centroid_histogram(clt):
 
 # 추출할 색의 범위 지정 및 각 색의 RGB 값과 그 점유율을 리스트로 반환, 히스토그램으로 표현
 def plot_colors(hist, centroids):
+    """
+    :param hist(numpy array) : 히스토그램의 값들이 담긴 리스트
+    :param centroids(numpy array) : 군집의 중심점
+    :return bar(numpy array) : 각 색의 분포도를 보여주기 위한 표
+    :return percent_list(list) : 각 색의 분포도가 담긴 리스트
+    :return color_list(list)  : 각 색의 rgb 값이 담긴 리스트
+    """
     percent_list = []
     color_list = []
 
@@ -66,6 +77,12 @@ def plot_colors(hist, centroids):
 
 # 옷의 색을 k개의 색으로 추려 표현
 def image_color_cluster(image, k=5):
+    """
+    :param image(numpy array): 추출된 옷
+    :param k(int) : 군집화할 개수
+    :return c_list(list) : 각 색의 rgb 값이 담긴 리스트
+    :return p_list(list) : 각 색의 분포도가 담긴 리스트
+    """
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = image.reshape((image.shape[0] * image.shape[1], 3))
     clt = KMeans(n_clusters=k)
@@ -76,6 +93,9 @@ def image_color_cluster(image, k=5):
 
 
 def find_color_name():
+    """
+    :return priority_color_list(list) : 각 RGB값들 중 가장 분포도가 높은 색들의 이름이 담긴 리스트
+    """
     cloth = Image.open('../image_data/cloth.jpg').convert('RGB')
     cloth.save('../image_data/cloth.png', 'png')
 
@@ -99,6 +119,10 @@ def find_color_name():
 
 
 def find_matching_color_name(priority_color_list):
+    """
+    :param priority_color_list(list) : 각 RGB값들 중 가장 분포도가 높은 색들의 이름이 담긴 리스트
+    :return matching_list(list) : 옷의 색과 어울리는 색들이 담긴 리스트
+    """
     priority_color = priority_color_list[0]
     # DB(MYSQL) 연동
     db = pymysql.connect(host='35.232.131.79', user='root', password='kobot10', db='see_ot', charset='utf8')

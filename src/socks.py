@@ -6,8 +6,18 @@ from matplotlib import pyplot as plt
 import color_data
 from PIL import Image
 
+"""
+양말 색상 판별 및 짝이 맞는지 확인
+@author 노성환
+@version 1.0.0
+"""
 # 배경 제거
 def extraction(image1, image2):
+    """
+    :param cloth(numpy array) : 옷 이미지
+    :param back(numpy array) : 배경 이미지
+    :return background_removed_img(numpy array) : 배경 제거된 옷 이미지
+    """
     background_removed_img = image1.copy()
 
     difference = cv2.subtract(image2, image1)
@@ -17,6 +27,10 @@ def extraction(image1, image2):
 
 # 히스토그램 평균화
 def centroid_histogram(clt):
+    """
+    :param clt(array) : 클러스터 픽셀
+    :return hist(numpy array) :  히스토그램의 값들이 담긴 리스트
+    """
     numLabels = np.arange(0, len(np.unique(clt.labels_)) + 1)
     (hist, _) = np.histogram(clt.labels_, bins=numLabels)
     hist = hist.astype("float")
@@ -26,6 +40,13 @@ def centroid_histogram(clt):
 
 # 추출할 색의 범위 지정 및 각 색의 RGB 값과 그 점유율을 리스트로 반환, 히스토그램으로 표현
 def plot_colors(hist, centroids):
+    """
+    :param hist() : 옷 종류
+    :param centroids(string) : 옷 색상
+    :return bar(numpy array) : 각 색의 분포도를 보여주기 위한 표
+    :return percent_list(list) : 각 색의 분포도가 담긴 리스트
+    :return color_list(list)  : 각 색의 rgb 값이 담긴 리스트
+    """
     percent_list = []
     color_list = []
 
@@ -54,6 +75,12 @@ def plot_colors(hist, centroids):
 
 # 옷의 색을 k개의 색으로 추려 표현
 def image_color_cluster(image, k=5):
+    """
+    :param image(numpy array): 추출된 옷
+    :param k(int) : 군집화할 개수
+    :return c_list(list) : 각 색의 rgb 값이 담긴 리스트
+    :return p_list(list) : 각 색의 분포도가 담긴 리스트
+    """
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = image.reshape((image.shape[0] * image.shape[1], 3))
     clt = KMeans(n_clusters=k)
@@ -64,6 +91,12 @@ def image_color_cluster(image, k=5):
 
 
 def find_color_name(cloth, bg):
+    """
+    :param cloth(numpy array) : 양말이 걸린 사진
+    :param bg(numpy array) : 시작할 때 배경 사진
+    :return priority_color1(string) : 양말 왼쪽의 색
+    :return priority_color1(string) : 양말 오른쪽의 색
+    """
     img = extraction(cloth, bg)
 
     # 이미지 절반으로 자르기
@@ -85,4 +118,3 @@ def find_color_name(cloth, bg):
     priority_color2 = color_name_list2[percent_list.index(max(percent_list))]
     print(priority_color1, priority_color2)
     return priority_color1, priority_color2
-    
