@@ -5,17 +5,24 @@ from matplotlib import pyplot as plt
 import pymysql
 import color_data
 from PIL import Image
-
+"""
+배경 제거 및 색상 판별
+* @author 김하연
+* @version 1.0.0
+"""
 
 # 배경 제거
 def extraction(cloth, back):
-    cloth = cv2.imread("../image_data/cloth.png")
-    back = cv2.imread("../image_data/back.png")
+    """
+    :param cloth(numpy array) : 옷 이미지
+    :param back(numpy array) : 배경 이미지
+    :return background_removed_img(numpy array) : 배경 제거된 옷 이미지
+    """
 
     # 2. remove image backgrounds
     background_removed_img = cloth.copy()
 
-    difference = cv2.subtract(back, cloth) 
+    difference = cv2.subtract(back, cloth) # 배경 이미지와 배경에 옷이 추가된 이미지의 다른 부분만 
     background_removed_img[np.where((difference < [80, 80, 70]).all(axis=2))] = [0, 0, 0]
     return background_removed_img
 
