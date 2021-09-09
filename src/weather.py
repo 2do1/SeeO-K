@@ -1,14 +1,14 @@
+import requests
+import gtts
+from bs4 import BeautifulSoup
+
 """
-네이버 날씨 크롤링을 통해, 현재 위치의 날씨와 오전, 오후 강수확률을 갖고와, TTS를 생성해준다.
+네이버 날씨 크롤링을 통해, 현재 위치의 날씨와 오전, 오후 강수확률을 갖고와 TTS를 생성해준다.
 그리고 강수확률이 50% 이상인지 아닌지를 판단하여, 우산을 챙겨야하는지 아닌지 여부를 판단하고 TTS를 생성해준다.
 
 @author : 이도원
 @version 1.0.0
 """
-    
-import requests
-import gtts
-from bs4 import BeautifulSoup
 
 def weather():
     """
