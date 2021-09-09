@@ -1,3 +1,10 @@
+'''
+* 사용자로부터 음성을 입력받아 해당하는 기능을 실행하는 코드
+* 
+* @author 송수인
+* @version 1.0
+'''
+
 from numpy.lib.function_base import insert
 import pattern_recognition_v2
 import extract_clothes
