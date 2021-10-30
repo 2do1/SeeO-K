@@ -35,14 +35,23 @@ def weather():
 
     weekly_box = soup.find('ul', {'class': 'week_list'})
 
-    today_rain = weekly_box.find('li', {'class': 'week_item today'})
+    today_info = weekly_box.find('li', {'class': 'week_item today'})
 
-    rain_list = today_rain.findAll('span', {'class': "rainfall"})
+    rain_list = today_info.findAll('span', {'class': "rainfall"})
+    
     # 오전 강수 확률
     morning_rain_rate = re.findall("\d+", rain_list[0].text)[0]
 
     # 오후 강수 확률
     afternoon_rain_rate = re.findall("\d+", rain_list[1].text)[0]
+
+    # 최저 기온
+    lowest_temperature = re.findall("\d+", today_info.find('span', {'class': 'lowest'}).text)[0]
+
+    # 최고 기온
+    highest_temperature = re.findall("\d+", today_info.find('span', {'class': 'highest'}).text)[0]
+
+    temperature_gap = int(highest_temperature) - int(lowest_temperature)
 
     # 현재 위치의 날씨와 오전, 오후 강수확률 TTS 생성
     tts = gtts.gTTS(
@@ -58,5 +67,13 @@ def weather():
     else:
         tts = gtts.gTTS(text="비 올 확률이 50% 미만이기 때문에, 우산을 안챙기셔도 됩니다", lang="ko")
         tts.save("../sound_data/umbrella.wav")
+
+    # 일교차가 큰 경우(최고 기온, 최저 기온 차이가 10도 이상 일 경우)
+    if(temperature_gap >= 10):
+        tts = gtts.gTTs(text="일교차가 크니, 겉옷을 챙겨주십시오.", lang="ko")
+        tts.save("../sound_data/temperature_gap.wav")
+    else:
+        tts = gtts.gTTs(text="일교차가 크지 않으니, 겉옷을 안챙기셔도 됩니다", lang="ko")
+        tts.save("../sound_data/temperature_gap.wav")
 
     return now_temperature
