@@ -10,35 +10,34 @@ import re
 @version 1.0.0
 """
 
-
 def weather():
     """
     :return now_temperature : 현재 위치의 기온, 날씨에 따른 옷 추천을 하기 위해 return 해준다.
     """
 
     # 네이버 날씨 크롤링
-    html = requests.get('https://search.naver.com/search.naver?query=%EB%82%A0%EC%94%A8')
+    html = requests.get('https://weather.naver.com/')
 
     # parsing 작업
     soup = BeautifulSoup(html.text, 'html.parser')
 
     # 현재 위치
-    now_address = soup.find('h2', {'class': 'blind'}).text
+    now_address = soup.find('strong', {'class': 'location_name'}).text
 
-    weather_box = soup.find('div', {'class': 'content_wrap'})
+    weather_box = soup.find('div', {'class': 'weather_area'})
 
     # 현재 온도
-    now_temperature = weather_box.find('div', {'class': 'temperature_text'}).text
+    now_temperature = re.findall('\d+', weather_box.find('strong', {'class': 'current'}).text)[0]
 
     # 현재 날씨
-    today_weather = weather_box.find('div', {'class': 'weather_main'}).text
+    today_weather = weather_box.find('span', {'class': 'weather before_slash'}).text
+
 
     weekly_box = soup.find('ul', {'class': 'week_list'})
 
     today_info = weekly_box.find('li', {'class': 'week_item today'})
 
     rain_list = today_info.findAll('span', {'class': "rainfall"})
-    
     # 오전 강수 확률
     morning_rain_rate = re.findall("\d+", rain_list[0].text)[0]
 
@@ -70,10 +69,10 @@ def weather():
 
     # 일교차가 큰 경우(최고 기온, 최저 기온 차이가 10도 이상 일 경우)
     if(temperature_gap >= 10):
-        tts = gtts.gTTs(text="일교차가 크니, 겉옷을 챙겨주십시오.", lang="ko")
+        tts = gtts.gTTS(text="일교차가 크니, 겉옷을 챙겨주십시오.", lang="ko")
         tts.save("../sound_data/temperature_gap.wav")
     else:
-        tts = gtts.gTTs(text="일교차가 크지 않으니, 겉옷을 안챙기셔도 됩니다", lang="ko")
+        tts = gtts.gTTS(text="일교차가 크지 않으니, 겉옷을 안챙기셔도 됩니다", lang="ko")
         tts.save("../sound_data/temperature_gap.wav")
 
     return now_temperature

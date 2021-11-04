@@ -1,10 +1,9 @@
 from sklearn.cluster import KMeans
 import numpy as np
 import cv2
-from matplotlib import pyplot as plt
-import pymysql
 import color_data
 from PIL import Image
+from matplotlib import pyplot as plt
 """
 배경 제거 및 색상 판별
 * @author 김하연 노성환
@@ -23,7 +22,7 @@ def extraction(cloth, back):
     background_removed_img = cloth.copy()
 
     difference = cv2.subtract(back, cloth) # 배경 이미지와 배경에 옷이 추가된 이미지의 다른 부분만 
-    background_removed_img[np.where((difference < [80, 80, 70]).all(axis=2))] = [0, 0, 0]
+    background_removed_img[np.where((difference < [50, 50, 50]).all(axis=2))] = [0, 0, 0]
     return background_removed_img
 
 
@@ -104,8 +103,9 @@ def find_color_name():
 
     picture = cv2.imread('../image_data/cloth.png')
     back = cv2.imread('../image_data/back.png')
-
     img = extraction(picture, back)
+    cv2.imwrite("../image_data/before.jpg", img)
+    
     rgb_list, percent_list = image_color_cluster(img)
     color_name_list = color_data.extract_color(rgb_list)
 
@@ -118,19 +118,15 @@ def find_color_name():
     return priority_color_list
 
 
-def find_matching_color_name(priority_color_list):
+def find_matching_color_name(priority_color_list, ref):
     """
     :param priority_color_list(list) : 각 RGB값들 중 가장 분포도가 높은 색들의 이름이 담긴 리스트
     :return matching_list(list) : 옷의 색과 어울리는 색들이 담긴 리스트
     """
     priority_color = priority_color_list[0]
     # DB(MYSQL) 연동
-    db = pymysql.connect(host='35.232.131.79', user='root', password='kobot10', db='see_ot', charset='utf8')
-    cursor = db.cursor(pymysql.cursors.DictCursor)
-    # 어울리는 색 검색
-    sql = "SELECT matching FROM color WHERE color_name = '{}';".format(priority_color)
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    # 검색 결과를 리스트로 반영
-    matching_list = result[0]['matching'].split(', ')
-    return matching_list
+    
+    # 어울리는 옷 가져오기
+    result = ref.child('matching_color/{}'.format(priority_color)).get()
+
+    return result

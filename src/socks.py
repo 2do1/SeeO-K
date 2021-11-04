@@ -1,10 +1,10 @@
-from numpy.lib.type_check import imag
 from sklearn.cluster import KMeans
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 import color_data
 from PIL import Image
+import white
 
 """
 양말 색상 판별 및 짝이 맞는지 확인
@@ -21,7 +21,7 @@ def extraction(image1, image2):
     background_removed_img = image1.copy()
 
     difference = cv2.subtract(image2, image1)
-    background_removed_img[np.where((difference < [80, 80, 80]).all(axis=2))] = [0, 0, 0]
+    background_removed_img[np.where((difference < [70, 70, 70]).all(axis=2))] = [0, 0, 0]
     return background_removed_img
 
 
@@ -98,19 +98,20 @@ def find_color_name(cloth, bg):
     :return priority_color1(string) : 양말 오른쪽의 색
     """
     img = extraction(cloth, bg)
+    img = white.white_b(img)
 
     # 이미지 절반으로 자르기
     h, w, c = img.shape
     cropped_img1 = img[0:h // 2, 0:w]
     cropped_img2 = img[h//2:h, 0:w]
-
+    cv2.imwrite("../image_data/socks_left.jpg", cropped_img1)  # 사진 저장
+    cv2.imwrite("../image_data/socks_right.jpg", cropped_img2)  # 사진 저장
 
     rgb_list, percent_list = image_color_cluster(cropped_img1)
     color_name_list1 = color_data.extract_color(rgb_list)
 
     # 가장 비중이 큰 옷의 색 확인
     priority_color1 = color_name_list1[percent_list.index(max(percent_list))]
-
     rgb_list, percent_list = image_color_cluster(cropped_img2)
     color_name_list2 = color_data.extract_color(rgb_list)
 

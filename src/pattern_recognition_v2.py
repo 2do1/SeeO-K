@@ -27,7 +27,7 @@ def pred_pattern(fw, bg):
 
     # 그림자 제거
     difference = cv2.subtract(image_bg, image_fw)
-    background_removed_img[np.where((difference < [100, 100, 100]).all(axis=2))] = [0, 0, 0]
+    background_removed_img[np.where((difference < [60, 60, 60]).all(axis=2))] = [0, 0, 0]
 
     # 효과적인 자르기를 위하여, 바운딩 박스를 활용
     cropped_img = Image.fromarray(background_removed_img)

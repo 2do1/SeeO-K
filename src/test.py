@@ -17,7 +17,7 @@ def voice_recognition(user_sec):
 		        channels=CHANNELS,
 		        rate=RATE,
 		        input=True,
-		        input_device_index = 12,
+		        input_device_index = 11,
 		        frames_per_buffer=CHUNK)
 
 	print("* recording")
