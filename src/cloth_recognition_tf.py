@@ -1,19 +1,10 @@
-# -*- coding: utf-8 -*-
-
-'''
-* google teachable machine으로 학습한 tensorflow lite 모델을 이용하여 옷의 패턴을 추론하는 기능을 하는 코드
-* 
-* @author 송수인
-* @version 1.0
-'''
-
 import cv2
 import numpy as np
 import tensorflow as tf
 from PIL import Image, ImageOps
 
 # 패턴 인식
-def pred_pattern(fw, bg):
+def pred_cloth(fw, bg):
     # 배경 제거
     cloth = Image.open(fw).convert('RGB')
     cloth.save('../image_data/cloth.png', 'png')
@@ -38,15 +29,14 @@ def pred_pattern(fw, bg):
     cropped_img = cropped_img.rotate(90)
     cropped_img = ImageOps.fit(cropped_img, (224, 224), Image.ANTIALIAS)
     cropped_img = np.asarray(cropped_img)
-    #cropped_img = (cropped_img.astype(np.float32) / 127.0) - 1
-    #cv2.imwrite('../image_data/d.png', cropped_img)
+    cropped_img = (cropped_img.astype(np.float32) / 127.0) - 1
 
     # 배경 제거된 이미지를 텐서로 변환
     input_image = tf.convert_to_tensor(cropped_img, tf.dtypes.float32)
     input_image = tf.expand_dims(input_image, 0)
 
     # 모델 불러오기
-    interpreter = tf.lite.Interpreter(model_path = "../model/model_unquant.tflite")
+    interpreter = tf.lite.Interpreter(model_path = "../model/cloth_10.tflite")
     interpreter.allocate_tensors()
 
     input_details = interpreter.get_input_details()
@@ -58,13 +48,9 @@ def pred_pattern(fw, bg):
     # 추론하기
     interpreter.invoke()
 
-    labels = ["체크 무늬", "꽃 무늬", "줄 무늬", "민 무늬"]
+    labels = ["긴팔 셔츠", "긴팔 원피스", "긴팔 티셔츠", "민소매 원피스", "가디건", "민소매 티셔츠", "반팔 원피스", "반팔 티셔츠", "반바지", "스키니", "일자 긴바지", "자켓", "치마", "코트", "패딩", "후드티"]
     output_data = interpreter.get_tensor(output_details[0]['index'])
     print("pattern predicted list", output_data)
     result = labels[np.argmax(output_data)]
 
     return result
-
-if __name__ == "__main__":
-    rt = pred_pattern("cloth.jpg", "back.jpg")
-    print(rt)

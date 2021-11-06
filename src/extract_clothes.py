@@ -4,6 +4,8 @@ import cv2
 import color_data
 from PIL import Image
 from matplotlib import pyplot as plt
+import white
+import white2
 """
 배경 제거 및 색상 판별
 * @author 김하연 노성환
@@ -103,9 +105,26 @@ def find_color_name():
 
     picture = cv2.imread('../image_data/cloth.png')
     back = cv2.imread('../image_data/back.png')
-    img = extraction(picture, back)
-    cv2.imwrite("../image_data/before.jpg", img)
     
+    equ = white2.equ_Hist(picture)
+    idx = white2.extractWhite(equ)
+    wh_front = white2.WB(idx, picture)
+    equ = white2.equ_Hist(back)
+    idx = white2.extractWhite(equ)
+    wh_back = white2.WB(idx, back)
+    img4 = extraction(wh_front, wh_back)
+    cv2.imwrite("../image_data/after_white4.jpg", img4)
+
+    
+    img = extraction(picture, back)
+    cv2.imwrite("../image_data/before_white.jpg", img) 
+    img2 = white.white_b(img)
+    cv2.imwrite("../image_data/after_white.jpg", img2)
+    equ = white2.equ_Hist(img)
+    idx = white2.extractWhite(equ)
+    img3 = white2.WB(idx, img)
+    cv2.imwrite("../image_data/after_white3.jpg", img3)
+
     rgb_list, percent_list = image_color_cluster(img)
     color_name_list = color_data.extract_color(rgb_list)
 

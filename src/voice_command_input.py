@@ -60,7 +60,8 @@ class Command:
     # 입력된 옷의 종류를 리턴
     def pred_kinds(self, fw, bg):
         # kinds
-        kinds = cloth_recognition.pred_cloth(fw, bg)
+        image = preprocess_cloth.preprocess_convnet(fw, bg)
+        kinds = cloth_recognition.predict_cloth(image)
         print("kinds = " + kinds)
 
         # 추정되는 종류가 리턴

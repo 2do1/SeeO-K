@@ -19,6 +19,6 @@ def white_b(extracted_image):
                  .clip(0, 255).astype(int))
     image_gw = np.float32(image_gw)
     #image_gw = cv2.cvtColor(image_gw, cv2.COLOR_RGB2BGR)
-    imsave("./gw.jpg", image_gw)
+    #imsave("./gw.jpg", image_gw)
 
     return image_gw

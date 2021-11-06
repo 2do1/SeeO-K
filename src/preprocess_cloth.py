@@ -37,19 +37,21 @@ def preprocess_convnet(cloth, back):
 
     difference = cv2.subtract(back, cloth)
     background_removed_img[np.where((difference < [90, 90, 90]).all(axis=2))] = [0, 0, 0]
+    cv2.imwrite('../image_data/1.background_removed.png', background_removed_img)
     # background_removed_img[np.where((difference > [-40, -40, -40]).all(axis=2))] = [0, 0, 0]
 
     # 2. gray scale
     # BGR 세 채널을 가지던 이미지를 단일 채널을 가지는 흑백 이미지로 바꾸어준다.
     gray_img = cv2.cvtColor(background_removed_img, cv2.COLOR_BGR2GRAY)
-    cv2.imwrite('../image_data/gray_background_removed.png', gray_img)
+    cv2.imwrite('../image_data/2.gray_background_removed.png', gray_img)
 
     # 3. trimmimg(crop)
     # 이미지의 가장자리를 트리밍 처리한다.
     # PIL의 getbbox()를 이용하여 bounding box를 리턴받아 이를 기준으로 crop 하였다.
     gray_img = Image.fromarray(gray_img)
     bbox = gray_img.getbbox()
-    croped_img = gray_img.crop(bbox)
+    cropped_img = gray_img.crop(bbox)
+    cropped_img.save('../image_data/3.cropped.png', 'png')
 
     # 4. sharpening
     # 가우시안 연산자를 이용하여 이미지의 윤곽선을 선명하게 보이도록 한다.
@@ -64,35 +66,33 @@ def preprocess_convnet(cloth, back):
     #print(resized_im.size)
     
     #sharpened_img = np.array(gray_img)
-    if croped_img.size[1] > croped_img.size[0]:
-        ratio = 216 / croped_img.size[1]
-        dim = (int(croped_img.size[0] * ratio), 216)
+    if cropped_img.size[1] > cropped_img.size[0]:
+        ratio = 216 / cropped_img.size[1]
+        dim = (int(cropped_img.size[0] * ratio), 216)
     else:
-        ratio = 150 / croped_img.size[0]
-        dim = (150, int(croped_img.size[1] * ratio))
-    resized_im = croped_img.resize(dim, Image.LANCZOS)
+        ratio = 150 / cropped_img.size[0]
+        dim = (150, int(cropped_img.size[1] * ratio))
+    resized_im = cropped_img.resize(dim, Image.LANCZOS)
     print(resized_im.size)
+    resized_im.save('../image_data/4.resized.png', 'png')
 
     # 6. extending
-    # 이미지의 짧은 변의 길이가 28이 되도록 이미지를 extending 한다.
+    # 
     # PIL의 ImageOps.expand() 함수를 이용하였다.
-    new_size = 150
-    delta_w = new_size - resized_im.size[0]
-    delta_h = new_size - resized_im.size[1]
+    new_size_h = 216
+    new_size_w = 150
+    delta_w = new_size_w - resized_im.size[0]
+    delta_h = new_size_h - resized_im.size[1]
     padding = (delta_w // 2, delta_h // 2, delta_w - (delta_w // 2), delta_h - (delta_h // 2))
     extend_im = ImageOps.expand(resized_im, padding)
     print(extend_im.size)
+    extend_im.save('../image_data/5.extended.png', 'png')
 
     # 7. rotate
     # 옷 전체를 잘리지 않게 찍기 위해 웹캠을 90도 회전시켰다. 따라서 다시 반대로 90도 회전시켜 줘야 한다.
-    extend_im = np.array(extend_im)
-    resized_im = cv2.resize(extend_im, dsize=(150, 216), interpolation=cv2.INTER_AREA)
-    
-    resized_im = Image.fromarray(resized_im)
-    rotate_im = resized_im.rotate(90)
+    rotate_im = extend_im.rotate(90)
     print(rotate_im.size)
- 
     # 전처리가 잘 되었는지 확인하기 위해 저장한다.
-    rotate_im.save('../image_data/preprocessed.png', 'png')
+    rotate_im.save('../image_data/6.rotated.png', 'png')
 
-    return resized_im
+    return rotate_im
