@@ -28,7 +28,7 @@ GitHub : https://github.com/kimhayeon00
 
 ```
 노성환
-Role :
+Role : DB, OpenCV
 GitHub : https://github.com/roseonghwan
 ```
 
