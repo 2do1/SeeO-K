@@ -22,7 +22,7 @@
 
 ```
 김하연
-Role : 
+Role : Algorithm, DB, OpenCV, Design
 GitHub : https://github.com/kimhayeon00
 ```
 
