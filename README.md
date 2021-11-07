@@ -23,29 +23,29 @@
 ```
 김하연
 Role : 
-GitHub : https://github.com/BaekYeonSun
+GitHub : https://github.com/
 ```
 
 ```
 노성환
 Role :
-GitHub : https://github.com/leehanjeong
+GitHub : https://github.com/
 ```
 
 ```
 송수인
 Role :
-GitHub : https://github.com/NaYoung2253
+GitHub : https://github.com/IngenieurSong
 ```
 
 ```
 이도원
 Role :
-GitHub : https://github.com/Hyewon0223
+GitHub : https://github.com/2do1
 ```
                                                            
 ```
 이한정
 Role : 
-GitHub : https://github.com/Hyewon0223
+GitHub : https://github.com/leehanjeong
 ```
