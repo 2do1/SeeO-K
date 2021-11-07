@@ -8,7 +8,6 @@
     <img src="https://img.shields.io/badge/GitBook-project_doc-blue?&style=for-the-badge&logo=github" />
   </a>
 </p>
-https://dowon-lee.gitbook.io/seeo-k2/
 
 ## 시옷 시연 영상
 
