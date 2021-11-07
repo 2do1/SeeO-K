@@ -34,7 +34,7 @@ GitHub : https://github.com/roseonghwan
 
 ```
 송수인
-Role :
+Role : pattern classification, white balancing
 GitHub : https://github.com/IngenieurSong
 ```
 
@@ -46,6 +46,6 @@ GitHub : https://github.com/2do1
                                                            
 ```
 이한정
-Role : 
+Role : cloth classification, white balancing
 GitHub : https://github.com/leehanjeong
 ```
