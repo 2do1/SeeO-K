@@ -1,6 +1,7 @@
 # 시옷(SeeO-K) : 시각장애인을 위한 옷 종류, 색, 패턴 판별 및 코디 추천 시스템 
-
-<img width="619" alt="title" src="https://user-images.githubusercontent.com/28584275/132673765-dd23f735-b06f-44d8-9cba-ac8441f7ff54.png">
+<p align="center">
+  <img width="619" alt="title" src="https://user-images.githubusercontent.com/28584275/132673765-dd23f735-b06f-44d8-9cba-ac8441f7ff54.png">
+</p>
 
 ## 메뉴얼
 <p align="center">
@@ -48,6 +49,3 @@ GitHub : https://github.com/Hyewon0223
 Role : 
 GitHub : https://github.com/Hyewon0223
 ```
-## 팀원
-
-이도원, 노성환, 이한정, 김하연, 송수인
