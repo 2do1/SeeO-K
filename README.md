@@ -3,7 +3,11 @@
 <img width="619" alt="title" src="https://user-images.githubusercontent.com/28584275/132673765-dd23f735-b06f-44d8-9cba-ac8441f7ff54.png">
 
 ## 메뉴얼
-
+<p align="center">
+  <a href="https://jilju-2.gitbook.io/seeo-k2/" target="_blank">
+    <img src="https://img.shields.io/badge/GitBook-project_doc-blue?&style=for-the-badge&logo=github" />
+  </a>
+</p>
 https://dowon-lee.gitbook.io/seeo-k2/
 
 ## 시옷 시연 영상
