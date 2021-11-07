@@ -15,6 +15,39 @@
     <img src="https://img.shields.io/badge/YouTube-team_video-red?&style=for-the-badge&logo=youtube" />
   </a>
 </p>
+                                                                                                    
+#### 팀원 소개
+
+
+```
+김하연
+Role : 
+GitHub : https://github.com/BaekYeonSun
+```
+
+```
+노성환
+Role :
+GitHub : https://github.com/leehanjeong
+```
+
+```
+송수인
+Role :
+GitHub : https://github.com/NaYoung2253
+```
+
+```
+이도원
+Role :
+GitHub : https://github.com/Hyewon0223
+```
+                                                           
+```
+이한정
+Role : 
+GitHub : https://github.com/Hyewon0223
+```
 ## 팀원
 
 이도원, 노성환, 이한정, 김하연, 송수인
