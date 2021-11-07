@@ -40,7 +40,7 @@ GitHub : https://github.com/IngenieurSong
 
 ```
 이도원
-Role :
+Role : DB, OpenCV, WebCrawling
 GitHub : https://github.com/2do1
 ```
                                                            
