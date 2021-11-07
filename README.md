@@ -4,7 +4,7 @@
 
 ## 메뉴얼
 
-링크 추가 예정
+https://dowon-lee.gitbook.io/seeo-k2/
 
 ## 시옷 시연 영상
 
