@@ -5,7 +5,7 @@
 
 ## 메뉴얼
 <p align="center">
-  <a href="https://dowon-lee.gitbook.io/seeo-k2/" target="_blank">
+  <a href="https://dowon-lee.gitbook.io/seeo-k/" target="_blank">
     <img src="https://img.shields.io/badge/GitBook-manual-blue?&style=for-the-badge&logo=github" />
   </a>
 </p>
