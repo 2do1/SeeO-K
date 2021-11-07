@@ -29,7 +29,7 @@ GitHub : https://github.com/
 ```
 노성환
 Role :
-GitHub : https://github.com/
+GitHub : https://github.com/roseonghwan
 ```
 
 ```
