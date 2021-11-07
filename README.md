@@ -10,15 +10,11 @@
 </p>
 
 ## 시옷 시연 영상
-https://img.shields.io/badge/<LABEL>-<MESSAGE>-<COLOR
 <p align="center">
   <a href="https://www.youtube.com/watch?v=HJoyewyEHHY target="_blank">
     <img src="https://img.shields.io/badge/YouTube-team_video-red?&style=for-the-badge&logo=youtube" />
   </a>
 </p>
-
-https://www.youtube.com/watch?v=HJoyewyEHHY
-
 ## 팀원
 
 이도원, 노성환, 이한정, 김하연, 송수인
