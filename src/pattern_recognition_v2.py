@@ -18,7 +18,7 @@ limitations under the License.
 * google teachable machine으로 학습한 tensorflow lite 모델을 이용하여 옷의 패턴을 추론하는 기능을 하는 코드
 * 
 * @author 송수인
-* @version 1.0
+* @version 2.0
 '''
 
 import cv2
